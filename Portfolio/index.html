@@ -89,23 +89,16 @@
   }
   .block.in{ opacity:1; transform:translateY(0); }
 
-  .prompt{
+  .section-label{
     font-family:var(--mono);
-    font-size:13px;
-    color:var(--text-dim);
-    margin-bottom:22px;
-    letter-spacing:.02em;
-  }
-  .prompt .user{ color:var(--amber); }
-  .prompt .cmd{ color:var(--text); }
-  .cursor{
-    display:inline-block;
-    width:8px;
-    margin-left:2px;
+    font-size:12px;
+    letter-spacing:.16em;
     color:var(--amber);
-    animation:blink 1.05s steps(1) infinite;
+    text-transform:uppercase;
+    margin-bottom:22px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line-soft);
   }
-  @keyframes blink{ 50%{ opacity:0; } }
 
   /* ---------- HERO ---------- */
   #hero{ padding-top:40px; }
@@ -172,7 +165,7 @@
     background:repeating-linear-gradient(to right, var(--line) 0 6px, transparent 6px 10px);
   }
 
-  h2.section-title{ display:none; } /* headings communicated via prompt line instead */
+
 
   /* ---------- PROJECTS ---------- */
   .project-list{
@@ -330,7 +323,7 @@
   .todo{ color:var(--text-mute); font-size:12px; }
   .todo::before{ content:"# "; }
 
-  .end-prompt{ margin-top:36px; margin-bottom:0; }
+
 
   @media (max-width:640px){
     .skills-groups{ grid-template-columns:1fr; }
@@ -342,7 +335,6 @@
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
     .block{ transition:none; opacity:1; transform:none; }
-    .cursor{ animation:none; }
   }
 </style>
 </head>
@@ -350,12 +342,12 @@
 
 <div class="topbar">
   <div class="wrap">
-    <span><span class="dot">●</span> guest@yehjiajing:~</span>
+    <span><span class="dot">●</span> 葉嘉靖 Portfolio</span>
     <nav>
-      <a href="#projects">projects</a>
-      <a href="#skills">skills</a>
-      <a href="#about">about</a>
-      <a href="#contact">contact</a>
+      <a href="#projects">專案</a>
+      <a href="#skills">技能</a>
+      <a href="#about">關於</a>
+      <a href="#contact">聯絡</a>
     </nav>
   </div>
 </div>
@@ -363,19 +355,17 @@
 <main class="wrap">
 
   <section id="hero" class="block">
-    <div class="prompt"><span class="user">guest@yehjiajing</span>:~$ <span class="cmd" id="typed-cmd"></span><span class="cursor">▌</span></div>
     <p class="eyebrow">Data Analyst / Business Analyst</p>
     <h1>葉嘉靖<span class="latin">Chia-Ching Yeh</span></h1>
     <p class="tagline">Mathematics × Statistics × Data</p>
     <p class="statement">我擅長將複雜資料轉化為可理解、可執行的商業洞察 —— 從資料庫查詢、統計檢定到機器學習模型，串起「數字」與「決策」之間的橋樑。</p>
-    <a href="#projects" class="cta">[ View Projects ]</a>
+    <a href="#projects" class="cta">[ 查看專案 ]</a>
   </section>
 
   <div class="rule"></div>
 
   <section id="projects" class="block">
-    <h2 class="section-title">Projects</h2>
-    <div class="prompt">$ <span class="cmd">ls -la ./projects/</span></div>
+    <div class="section-label">專案作品</div>
 
     <ol class="project-list">
 
@@ -383,8 +373,8 @@
         <a class="project-link" href="projects/bank-customer-insight/index.html">
           <div class="project-row">
             <span class="project-index">01</span>
-            <span class="project-name">bank-customer-insight<span class="slash">/</span></span>
-            <span class="arrow">[ View Case Study → ]</span>
+            <span class="project-name">銀行零售客戶洞察平台</span>
+            <span class="arrow">[ 查看案例 → ]</span>
           </div>
           <div class="project-stack">PostgreSQL · Python · Machine Learning · Power BI</div>
           <p class="project-desc">銀行零售客戶洞察平台 — 建立客群分群與流失預測模型，以 XGBoost 搭配 SHAP 解釋變數重要性，協助業務端擬定分眾策略。</p>
@@ -401,8 +391,8 @@
         <a class="project-link" href="projects/vtuber-analysis/index.html">
           <div class="project-row">
             <span class="project-index">02</span>
-            <span class="project-name">vtuber-analysis<span class="slash">/</span></span>
-            <span class="arrow">[ View Case Study → ]</span>
+            <span class="project-name">VTuber 觀眾問卷調查分析</span>
+            <span class="arrow">[ 查看案例 → ]</span>
           </div>
           <div class="project-stack">Survey Design · Statistics · PCA</div>
           <p class="project-desc">VTuber 觀眾問卷調查分析 — 針對 355 位受訪者進行量化研究，以 Spearman 相關、卡方檢定與主成分分析挖掘觀眾行為與偏好結構。</p>
@@ -419,8 +409,8 @@
         <a class="project-link" href="projects/ta-grade-system/index.html">
           <div class="project-row">
             <span class="project-index">03</span>
-            <span class="project-name">ta-grade-system<span class="slash">/</span></span>
-            <span class="arrow">[ View Case Study → ]</span>
+            <span class="project-name">助教課成績管理系統</span>
+            <span class="arrow">[ 查看案例 → ]</span>
           </div>
           <div class="project-stack">Business Analysis · System Design</div>
           <p class="project-desc">助教課成績管理系統 — 從需求訪談到使用者流程設計，規劃成績匯入與儀表板功能，降低助教端的重複人工作業。</p>
@@ -437,8 +427,8 @@
         <a class="project-link" href="projects/long-covid/index.html">
           <div class="project-row">
             <span class="project-index">04</span>
-            <span class="project-name">long-covid<span class="slash">/</span></span>
-            <span class="arrow">[ View Research → ]</span>
+            <span class="project-name">長新冠危險因子研究</span>
+            <span class="arrow">[ 查看研究 → ]</span>
           </div>
           <div class="project-stack">Statistics · Meta-Analysis · Research</div>
           <p class="project-desc">長新冠可能危險因子探索 — 碩士論文研究，統合 61 篇研究、168,109 名受試者，以統合回歸法檢視長新冠十大常見症狀之潛在危險因子。</p>
@@ -455,8 +445,8 @@
         <a class="project-link" href="projects/line-business-card/index.html">
           <div class="project-row">
             <span class="project-index">05</span>
-            <span class="project-name">line-business-card<span class="slash">/</span></span>
-            <span class="arrow">[ View Project → ]</span>
+            <span class="project-name">賴哩來數位名片系統</span>
+            <span class="arrow">[ 查看專案 → ]</span>
           </div>
           <div class="project-stack">Product Design · System Design · LINE Integration</div>
           <p class="project-desc">賴哩來數位名片系統 — 從 v1 到 v4 的產品迭代，整合 LINE Flex Message 與 LIFF，打造可分享、可追蹤的數位名片服務。</p>
@@ -475,13 +465,12 @@
   <div class="rule"></div>
 
   <section id="skills" class="block">
-    <h2 class="section-title">Skills</h2>
-    <div class="prompt">$ <span class="cmd">cat skills.json</span></div>
+    <div class="section-label">技能</div>
 
     <div class="skills-panel">
       <div class="skills-groups">
         <div>
-          <div class="skill-group-label">Languages &amp; Tools</div>
+          <div class="skill-group-label">程式語言與工具</div>
           <div class="skill-chips">
             <span class="skill-chip">Python</span>
             <span class="skill-chip">SQL</span>
@@ -491,21 +480,21 @@
           </div>
         </div>
         <div>
-          <div class="skill-group-label">Reporting &amp; BI</div>
+          <div class="skill-group-label">報表與商業智慧</div>
           <div class="skill-chips">
             <span class="skill-chip">Power BI</span>
             <span class="skill-chip">Excel</span>
           </div>
         </div>
         <div>
-          <div class="skill-group-label">Analysis</div>
+          <div class="skill-group-label">分析方法</div>
           <div class="skill-chips">
             <span class="skill-chip">Statistics</span>
             <span class="skill-chip">Machine Learning</span>
           </div>
         </div>
         <div>
-          <div class="skill-group-label">Practice</div>
+          <div class="skill-group-label">實務應用</div>
           <div class="skill-chips">
             <span class="skill-chip">Business Analysis</span>
           </div>
@@ -517,20 +506,19 @@
   <div class="rule"></div>
 
   <section id="about" class="block">
-    <h2 class="section-title">About</h2>
-    <div class="prompt">$ <span class="cmd">cat about.md</span></div>
+    <div class="section-label">關於我</div>
 
     <div class="about-grid">
       <div class="about-line">
-        <span class="about-key">education</span>
+        <span class="about-key">學歷</span>
         <span class="about-val">淡江大學應用數學與數據科學學系 <span class="dim">— 應用數學與數據科學碩士班</span></span>
       </div>
       <div class="about-line">
-        <span class="about-key">focus</span>
+        <span class="about-key">專長領域</span>
         <span class="about-val dim">統計方法、機器學習與商業資料分析，橫跨學術研究與實務專案。</span>
       </div>
       <div class="about-line">
-        <span class="about-key">approach</span>
+        <span class="about-key">工作方法</span>
         <span class="about-val dim">從問題定義、資料清理、統計檢定到視覺化溝通，重視分析結果能被業務端理解並採取行動。</span>
       </div>
     </div>
@@ -539,43 +527,23 @@
   <div class="rule"></div>
 
   <footer id="contact" class="block">
-    <h2 class="section-title">Contact</h2>
-    <div class="prompt">$ <span class="cmd">contact --info</span></div>
+    <div class="section-label">聯絡方式</div>
 
     <div class="contact-lines">
       <div class="contact-row">
-        <span class="contact-key">email</span>
+        <span class="contact-key">信箱</span>
         <a class="contact-val" href="mailto:albertyeh0527@gmail.com">albertyeh0527@gmail.com</a>
       </div>
       <div class="contact-row">
-        <span class="contact-key">linkedin</span>
-        <a class="contact-val" href="linkedin.com/in/albert-yeh-55716321b" target="_blank" rel="noopener">linkedin.com/in/yourusername</a>
+        <span class="contact-key">領英</span>
+        <a class="contact-val" href="https://www.linkedin.com/in/albert-yeh-55716321b/" target="_blank" rel="noopener">linkedin.com/in/albert-yeh-55716321b</a>
       </div>
     </div>
-
-    <div class="prompt end-prompt">$ <span class="cursor">▌</span></div>
   </footer>
 
 </main>
 
 <script>
-  // Typing effect for the hero command line
-  (function(){
-    var target = document.getElementById('typed-cmd');
-    var text = 'whoami';
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) { target.textContent = text; return; }
-    var i = 0;
-    function tick(){
-      if (i <= text.length){
-        target.textContent = text.slice(0, i);
-        i++;
-        setTimeout(tick, 90);
-      }
-    }
-    tick();
-  })();
-
   // Scroll-reveal for each block
   (function(){
     var blocks = document.querySelectorAll('.block');
