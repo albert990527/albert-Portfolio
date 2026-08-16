@@ -82,7 +82,7 @@
   main{ padding-top:56px; }
 
   .block{
-    padding:64px 0;
+    padding:36px 0;
     opacity:0;
     transform:translateY(10px);
     transition:opacity .6s ease, transform .6s ease;
@@ -164,8 +164,6 @@
     height:1px;
     background:repeating-linear-gradient(to right, var(--line) 0 6px, transparent 6px 10px);
   }
-
-
 
   /* ---------- PROJECTS ---------- */
   .project-list{
@@ -290,10 +288,53 @@
   }
 
   /* ---------- ABOUT ---------- */
+  .about-bio{ max-width:66ch; font-size:15px; color:var(--text-dim); margin-bottom:8px; }
+  .about-bio p{ margin:0 0 14px; }
+  .about-subhead{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--amber-dim);
+    margin:32px 0 14px;
+  }
+  .capability-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+  .capability-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line-soft);
+    border-radius:6px;
+    padding:20px 22px;
+  }
+  .capability-title{
+    font-family:var(--cjk);
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--text);
+    margin-bottom:12px;
+  }
+  .capability-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .capability-list li{
+    font-size:13px;
+    color:var(--text-dim);
+    line-height:1.6;
+    padding-left:14px;
+    position:relative;
+  }
+  .capability-list li::before{
+    content:"•";
+    position:absolute;
+    left:0;
+    color:var(--amber);
+  }
   .about-grid{
     display:grid;
     grid-template-columns:1fr;
     gap:22px;
+    margin:0 0 26px;
   }
   .about-line{
     display:flex;
@@ -313,6 +354,10 @@
   .about-val{ color:var(--text); }
   .about-val .dim{ color:var(--text-dim); }
 
+  @media (max-width:760px){
+    .capability-grid{ grid-template-columns:1fr; }
+  }
+
   /* ---------- FOOTER / CONTACT ---------- */
   footer.block{ padding-bottom:90px; }
   .contact-lines{ font-family:var(--mono); font-size:14px; }
@@ -322,8 +367,6 @@
   .contact-val:hover{ text-decoration:underline; }
   .todo{ color:var(--text-mute); font-size:12px; }
   .todo::before{ content:"# "; }
-
-
 
   @media (max-width:640px){
     .skills-groups{ grid-template-columns:1fr; }
@@ -344,9 +387,9 @@
   <div class="wrap">
     <span><span class="dot">●</span> 葉嘉靖 Portfolio</span>
     <nav>
+      <a href="#about">關於</a>
       <a href="#projects">專案</a>
       <a href="#skills">技能</a>
-      <a href="#about">關於</a>
       <a href="#contact">聯絡</a>
     </nav>
   </div>
@@ -362,7 +405,45 @@
     <a href="#projects" class="cta">[ 查看專案 ]</a>
   </section>
 
-  <div class="rule"></div>
+  <section id="about" class="block">
+    <div class="section-label">關於我</div>
+
+    <div class="about-bio">
+      <p>您好，我是葉嘉靖，畢業於淡江大學應用數學與數據科學學系（應用數學與數據科學碩士班），現正投入資料分析與商業智慧領域。</p>
+      <p>我具備兩年微積分助教教學經驗，擅長將複雜、跨領域的問題拆解為可分析的結構，並把分析結果轉化為清楚、可執行的商業建議。除了資料清理、統計建模與視覺化，我也持續探索如何將分析成果整合成真正可落地的系統與工具。</p>
+      <p>目前已完成金融、串流媒體、教育行政與公共衛生等跨領域專案，並與團隊共同完成 LINE 數位名片系統的產品開發，累積從需求訪談、系統設計、資料庫規劃到功能部署的完整實作經驗。</p>
+    </div>
+
+    <div class="about-subhead">🛠 核心能力</div>
+
+    <div class="capability-grid">
+      <div class="capability-card">
+        <div class="capability-title">資料分析與商業智慧</div>
+        <ul class="capability-list">
+          <li>SQL / PostgreSQL｜資料查詢、清理與整合</li>
+          <li>Python｜資料處理、探索式分析與機器學習建模（XGBoost、SHAP）</li>
+          <li>R / Stata｜統計檢定與統合回歸分析</li>
+          <li>Power BI / Excel｜資料視覺化與營運分析</li>
+        </ul>
+      </div>
+      <div class="capability-card">
+        <div class="capability-title">商業分析與溝通</div>
+        <ul class="capability-list">
+          <li>客群分群、流失預測與決策支援</li>
+          <li>問卷設計與量化研究方法（Spearman 相關、卡方檢定、PCA）</li>
+          <li>能將分析結果轉化為非技術背景利害關係人可理解的建議</li>
+        </ul>
+      </div>
+      <div class="capability-card">
+        <div class="capability-title">教學與工具開發</div>
+        <ul class="capability-list">
+          <li>兩年微積分助教經驗，擅長將抽象數學概念拆解、清楚講解</li>
+          <li>Git / GitHub｜助教課成績管理系統即架設於 GitHub 上進行版本控管</li>
+          <li>需求訪談、使用者流程規劃與產品迭代設計</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <section id="projects" class="block">
     <div class="section-label">專案作品</div>
@@ -462,8 +543,6 @@
     </ol>
   </section>
 
-  <div class="rule"></div>
-
   <section id="skills" class="block">
     <div class="section-label">技能</div>
 
@@ -503,29 +582,6 @@
     </div>
   </section>
 
-  <div class="rule"></div>
-
-  <section id="about" class="block">
-    <div class="section-label">關於我</div>
-
-    <div class="about-grid">
-      <div class="about-line">
-        <span class="about-key">學歷</span>
-        <span class="about-val">淡江大學應用數學與數據科學學系 <span class="dim">— 應用數學與數據科學碩士班</span></span>
-      </div>
-      <div class="about-line">
-        <span class="about-key">專長領域</span>
-        <span class="about-val dim">統計方法、機器學習與商業資料分析，橫跨學術研究與實務專案。</span>
-      </div>
-      <div class="about-line">
-        <span class="about-key">工作方法</span>
-        <span class="about-val dim">從問題定義、資料清理、統計檢定到視覺化溝通，重視分析結果能被業務端理解並採取行動。</span>
-      </div>
-    </div>
-  </section>
-
-  <div class="rule"></div>
-
   <footer id="contact" class="block">
     <div class="section-label">聯絡方式</div>
 
@@ -535,7 +591,7 @@
         <a class="contact-val" href="mailto:albertyeh0527@gmail.com">albertyeh0527@gmail.com</a>
       </div>
       <div class="contact-row">
-        <span class="contact-key">linkedin</span>
+        <span class="contact-key">領英</span>
         <a class="contact-val" href="https://www.linkedin.com/in/albert-yeh-55716321b/" target="_blank" rel="noopener">linkedin.com/in/albert-yeh-55716321b</a>
       </div>
     </div>
