@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>葉嘉靖 — Data Analyst / Business Analyst</title>
+<meta name="description" content="葉嘉靖的作品集 — Mathematics × Statistics × Data。以資料分析與商業洞察為核心的專案集錦。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBFAF5;
+    --bg-panel:#F2EFE4;
+    --line:#E1DDCC;
+    --line-soft:#EAE7DB;
+    --amber:#A8703A;
+    --amber-dim:#9C7A46;
+    --amber-glow:rgba(168,112,58,0.14);
+    --text:#242017;
+    --text-dim:#5C5645;
+    --text-mute:#847E68;
+    --mono:'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
+    --cjk:'Noto Sans TC', 'IBM Plex Mono', sans-serif;
+    --maxw:860px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, rgba(168,112,58,0.05), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--cjk);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--amber-glow); color:var(--amber); }
+
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* top status bar */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:40;
+    background:rgba(251,250,245,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-mute);
+    letter-spacing:.04em;
+  }
+  .topbar .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+  .topbar .dot{ color:var(--amber); }
+  .topbar nav{ display:flex; gap:18px; }
+  .topbar nav a{ text-decoration:none; color:var(--text-mute); transition:color .15s; }
+  .topbar nav a:hover{ color:var(--amber); }
+
+  main{ padding-top:56px; }
+
+  .block{
+    padding:64px 0;
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .block.in{ opacity:1; transform:translateY(0); }
+
+  .prompt{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    margin-bottom:22px;
+    letter-spacing:.02em;
+  }
+  .prompt .user{ color:var(--amber); }
+  .prompt .cmd{ color:var(--text); }
+  .cursor{
+    display:inline-block;
+    width:8px;
+    margin-left:2px;
+    color:var(--amber);
+    animation:blink 1.05s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- HERO ---------- */
+  #hero{ padding-top:40px; }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.16em;
+    color:var(--amber);
+    margin:0 0 18px;
+    text-transform:uppercase;
+  }
+  h1{
+    font-family:var(--cjk);
+    font-weight:900;
+    font-size:clamp(40px, 8vw, 64px);
+    margin:0 0 6px;
+    line-height:1.08;
+    letter-spacing:.01em;
+  }
+  h1 .latin{
+    display:block;
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:16px;
+    color:var(--text-dim);
+    letter-spacing:.06em;
+    margin-top:10px;
+  }
+  .tagline{
+    font-family:var(--mono);
+    font-size:16px;
+    color:var(--amber);
+    margin:26px 0 14px;
+    letter-spacing:.02em;
+  }
+  .statement{
+    max-width:56ch;
+    color:var(--text-dim);
+    font-size:16px;
+    margin:0 0 34px;
+  }
+  .cta{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--amber);
+    text-decoration:none;
+    border:1px solid var(--amber-dim);
+    padding:11px 20px;
+    border-radius:3px;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  .cta:hover{
+    background:var(--amber);
+    color:#FFFBF3;
+    border-color:var(--amber);
+  }
+
+  /* ---------- RULE ---------- */
+  .rule{
+    max-width:var(--maxw);
+    margin:0 auto;
+    height:1px;
+    background:repeating-linear-gradient(to right, var(--line) 0 6px, transparent 6px 10px);
+  }
+
+  h2.section-title{ display:none; } /* headings communicated via prompt line instead */
+
+  /* ---------- PROJECTS ---------- */
+  .project-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+  }
+  .project-item{
+    border-top:1px solid var(--line-soft);
+  }
+  .project-item:last-child{ border-bottom:1px solid var(--line-soft); }
+
+  .project-link{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    padding:26px 14px;
+    border-radius:4px;
+    transition:background .18s;
+  }
+  .project-link:hover, .project-link:focus-visible{
+    background:var(--bg-panel);
+  }
+  .project-link:hover .project-name, .project-link:focus-visible .project-name{ color:var(--amber); }
+  .project-link:hover .arrow, .project-link:focus-visible .arrow{ transform:translateX(4px); opacity:1; }
+
+  .project-row{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    font-family:var(--mono);
+  }
+  .project-index{
+    color:var(--amber-dim);
+    font-size:13px;
+    flex-shrink:0;
+    width:22px;
+  }
+  .project-perm{
+    color:var(--text-mute);
+    font-size:12px;
+    flex-shrink:0;
+    display:none;
+  }
+  .project-name{
+    font-family:var(--cjk);
+    font-weight:700;
+    font-size:20px;
+    color:var(--text);
+    transition:color .15s;
+  }
+  .project-name .slash{ color:var(--text-mute); font-weight:400; }
+  .arrow{
+    margin-left:auto;
+    color:var(--amber);
+    opacity:0;
+    transform:translateX(0);
+    transition:transform .18s, opacity .18s;
+    flex-shrink:0;
+  }
+  .project-stack{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-mute);
+    margin:8px 0 10px 38px;
+    letter-spacing:.02em;
+  }
+  .project-desc{
+    margin:0 0 12px 38px;
+    color:var(--text-dim);
+    font-size:14.5px;
+    max-width:60ch;
+  }
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-left:38px;
+  }
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-dim);
+    border:1px solid var(--line);
+    padding:3px 9px;
+    border-radius:20px;
+    letter-spacing:.02em;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line-soft);
+    border-radius:6px;
+    padding:26px 28px;
+    font-family:var(--mono);
+    font-size:14px;
+    overflow-x:auto;
+  }
+  .skills-groups{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:22px 40px;
+  }
+  .skill-group-label{
+    color:var(--amber-dim);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .skill-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .skill-chip{
+    color:var(--text);
+    background:var(--line-soft);
+    border:1px solid var(--line);
+    padding:5px 11px;
+    border-radius:3px;
+    font-size:12.5px;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+  .about-line{
+    display:flex;
+    gap:14px;
+    font-size:14.5px;
+    align-items:baseline;
+    flex-wrap:wrap;
+  }
+  .about-key{
+    font-family:var(--mono);
+    color:var(--text-mute);
+    width:96px;
+    flex-shrink:0;
+    font-size:12.5px;
+    letter-spacing:.03em;
+  }
+  .about-val{ color:var(--text); }
+  .about-val .dim{ color:var(--text-dim); }
+
+  /* ---------- FOOTER / CONTACT ---------- */
+  footer.block{ padding-bottom:90px; }
+  .contact-lines{ font-family:var(--mono); font-size:14px; }
+  .contact-row{ display:flex; gap:14px; margin-bottom:10px; flex-wrap:wrap; }
+  .contact-key{ color:var(--text-mute); width:70px; flex-shrink:0; }
+  .contact-val{ color:var(--amber); text-decoration:none; }
+  .contact-val:hover{ text-decoration:underline; }
+  .todo{ color:var(--text-mute); font-size:12px; }
+  .todo::before{ content:"# "; }
+
+  .end-prompt{ margin-top:36px; margin-bottom:0; }
+
+  @media (max-width:640px){
+    .skills-groups{ grid-template-columns:1fr; }
+    .project-stack, .project-desc, .tag-row{ margin-left:0; }
+    .project-row{ flex-wrap:wrap; }
+    h1 .latin{ font-size:14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .block{ transition:none; opacity:1; transform:none; }
+    .cursor{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span><span class="dot">●</span> guest@yehjiajing:~</span>
+    <nav>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#about">about</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section id="hero" class="block">
+    <div class="prompt"><span class="user">guest@yehjiajing</span>:~$ <span class="cmd" id="typed-cmd"></span><span class="cursor">▌</span></div>
+    <p class="eyebrow">Data Analyst / Business Analyst</p>
+    <h1>葉嘉靖<span class="latin">Chia-Ching Yeh</span></h1>
+    <p class="tagline">Mathematics × Statistics × Data</p>
+    <p class="statement">我擅長將複雜資料轉化為可理解、可執行的商業洞察 —— 從資料庫查詢、統計檢定到機器學習模型，串起「數字」與「決策」之間的橋樑。</p>
+    <a href="#projects" class="cta">[ View Projects ]</a>
+  </section>
+
+  <div class="rule"></div>
+
+  <section id="projects" class="block">
+    <h2 class="section-title">Projects</h2>
+    <div class="prompt">$ <span class="cmd">ls -la ./projects/</span></div>
+
+    <ol class="project-list">
+
+      <li class="project-item">
+        <a class="project-link" href="projects/bank-customer-insight/index.html">
+          <div class="project-row">
+            <span class="project-index">01</span>
+            <span class="project-name">bank-customer-insight<span class="slash">/</span></span>
+            <span class="arrow">[ View Case Study → ]</span>
+          </div>
+          <div class="project-stack">PostgreSQL · Python · Machine Learning · Power BI</div>
+          <p class="project-desc">銀行零售客戶洞察平台 — 建立客群分群與流失預測模型，以 XGBoost 搭配 SHAP 解釋變數重要性，協助業務端擬定分眾策略。</p>
+          <div class="tag-row">
+            <span class="tag">Customer Segmentation</span>
+            <span class="tag">Churn Prediction</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">SHAP</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="project-item">
+        <a class="project-link" href="projects/vtuber-analysis/index.html">
+          <div class="project-row">
+            <span class="project-index">02</span>
+            <span class="project-name">vtuber-analysis<span class="slash">/</span></span>
+            <span class="arrow">[ View Case Study → ]</span>
+          </div>
+          <div class="project-stack">Survey Design · Statistics · PCA</div>
+          <p class="project-desc">VTuber 觀眾問卷調查分析 — 針對 355 位受訪者進行量化研究，以 Spearman 相關、卡方檢定與主成分分析挖掘觀眾行為與偏好結構。</p>
+          <div class="tag-row">
+            <span class="tag">355 respondents</span>
+            <span class="tag">Spearman Correlation</span>
+            <span class="tag">Chi-square Test</span>
+            <span class="tag">PCA</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="project-item">
+        <a class="project-link" href="projects/ta-grade-system/index.html">
+          <div class="project-row">
+            <span class="project-index">03</span>
+            <span class="project-name">ta-grade-system<span class="slash">/</span></span>
+            <span class="arrow">[ View Case Study → ]</span>
+          </div>
+          <div class="project-stack">Business Analysis · System Design</div>
+          <p class="project-desc">助教課成績管理系統 — 從需求訪談到使用者流程設計，規劃成績匯入與儀表板功能，降低助教端的重複人工作業。</p>
+          <div class="tag-row">
+            <span class="tag">Requirement</span>
+            <span class="tag">User Flow</span>
+            <span class="tag">Data Import</span>
+            <span class="tag">Dashboard</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="project-item">
+        <a class="project-link" href="projects/long-covid/index.html">
+          <div class="project-row">
+            <span class="project-index">04</span>
+            <span class="project-name">long-covid<span class="slash">/</span></span>
+            <span class="arrow">[ View Research → ]</span>
+          </div>
+          <div class="project-stack">Statistics · Meta-Analysis · Research</div>
+          <p class="project-desc">長新冠可能危險因子探索 — 碩士論文研究，統合 61 篇研究、168,109 名受試者，以統合回歸法檢視長新冠十大常見症狀之潛在危險因子。</p>
+          <div class="tag-row">
+            <span class="tag">61 Studies</span>
+            <span class="tag">168,109 Participants</span>
+            <span class="tag">Meta-analysis</span>
+            <span class="tag">Meta-regression</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="project-item">
+        <a class="project-link" href="projects/line-business-card/index.html">
+          <div class="project-row">
+            <span class="project-index">05</span>
+            <span class="project-name">line-business-card<span class="slash">/</span></span>
+            <span class="arrow">[ View Project → ]</span>
+          </div>
+          <div class="project-stack">Product Design · System Design · LINE Integration</div>
+          <p class="project-desc">賴哩來數位名片系統 — 從 v1 到 v4 的產品迭代，整合 LINE Flex Message 與 LIFF，打造可分享、可追蹤的數位名片服務。</p>
+          <div class="tag-row">
+            <span class="tag">v1 → v4</span>
+            <span class="tag">LINE Flex Message</span>
+            <span class="tag">LIFF</span>
+            <span class="tag">12 支 API</span>
+          </div>
+        </a>
+      </li>
+
+    </ol>
+  </section>
+
+  <div class="rule"></div>
+
+  <section id="skills" class="block">
+    <h2 class="section-title">Skills</h2>
+    <div class="prompt">$ <span class="cmd">cat skills.json</span></div>
+
+    <div class="skills-panel">
+      <div class="skills-groups">
+        <div>
+          <div class="skill-group-label">Languages &amp; Tools</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">SQL</span>
+            <span class="skill-chip">PostgreSQL</span>
+            <span class="skill-chip">R</span>
+            <span class="skill-chip">Stata</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Reporting &amp; BI</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Power BI</span>
+            <span class="skill-chip">Excel</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Analysis</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Statistics</span>
+            <span class="skill-chip">Machine Learning</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-label">Practice</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Business Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section id="about" class="block">
+    <h2 class="section-title">About</h2>
+    <div class="prompt">$ <span class="cmd">cat about.md</span></div>
+
+    <div class="about-grid">
+      <div class="about-line">
+        <span class="about-key">education</span>
+        <span class="about-val">淡江大學應用數學與數據科學學系 <span class="dim">— 應用數學與數據科學碩士班</span></span>
+      </div>
+      <div class="about-line">
+        <span class="about-key">focus</span>
+        <span class="about-val dim">統計方法、機器學習與商業資料分析，橫跨學術研究與實務專案。</span>
+      </div>
+      <div class="about-line">
+        <span class="about-key">approach</span>
+        <span class="about-val dim">從問題定義、資料清理、統計檢定到視覺化溝通，重視分析結果能被業務端理解並採取行動。</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <footer id="contact" class="block">
+    <h2 class="section-title">Contact</h2>
+    <div class="prompt">$ <span class="cmd">contact --info</span></div>
+
+    <div class="contact-lines">
+      <div class="contact-row">
+        <span class="contact-key">email</span>
+        <a class="contact-val" href="mailto:your.email@example.com">your.email@example.com</a>
+        <span class="todo">TODO: 換成你的正式 Email</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-key">github</span>
+        <a class="contact-val" href="https://github.com/yourusername" target="_blank" rel="noopener">github.com/yourusername</a>
+        <span class="todo">TODO: 換成你的 GitHub</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-key">linkedin</span>
+        <a class="contact-val" href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">linkedin.com/in/yourusername</a>
+        <span class="todo">TODO: 換成你的 LinkedIn</span>
+      </div>
+    </div>
+
+    <div class="prompt end-prompt">$ <span class="cursor">▌</span></div>
+  </footer>
+
+</main>
+
+<script>
+  // Typing effect for the hero command line
+  (function(){
+    var target = document.getElementById('typed-cmd');
+    var text = 'whoami';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { target.textContent = text; return; }
+    var i = 0;
+    function tick(){
+      if (i <= text.length){
+        target.textContent = text.slice(0, i);
+        i++;
+        setTimeout(tick, 90);
+      }
+    }
+    tick();
+  })();
+
+  // Scroll-reveal for each block
+  (function(){
+    var blocks = document.querySelectorAll('.block');
+    if (!('IntersectionObserver' in window)){
+      blocks.forEach(function(b){ b.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    blocks.forEach(function(b){ io.observe(b); });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>長新冠危險因子統合回歸研究 — 葉嘉靖</title>
+<meta name="description" content="探索長新冠之可能危險因素：統合回歸方法。碩士論文研究案例，統合 61 篇研究、168,109 名受試者。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBFAF5; --bg-panel:#F2EFE4; --line:#E1DDCC; --line-soft:#EAE7DB;
+    --amber:#A8703A; --amber-dim:#C9A876; --amber-glow:rgba(168,112,58,0.14);
+    --text:#242017; --text-dim:#5C5645; --text-mute:#847E68;
+    --mono:'IBM Plex Mono','Noto Sans TC',ui-monospace,monospace;
+    --cjk:'Noto Sans TC','IBM Plex Mono',sans-serif;
+    --maxw:820px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:radial-gradient(ellipse 120% 60% at 50% -10%, rgba(168,112,58,0.05), transparent 60%), var(--bg);
+    color:var(--text); font-family:var(--cjk); line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--amber-glow); color:var(--amber); }
+  a{ color:var(--amber); }
+  a:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+  .backlink{
+    position:fixed; top:14px; left:14px; z-index:50; font-family:var(--mono); font-size:12px;
+    color:var(--text-mute); background:rgba(251,250,245,0.75); backdrop-filter:blur(6px);
+    border:1px solid var(--line); padding:6px 10px; border-radius:4px; text-decoration:none;
+  }
+  .backlink:hover{ color:var(--amber); border-color:var(--amber-dim); }
+
+  main{ padding:78px 0 100px; }
+  .prompt{ font-family:var(--mono); font-size:13px; color:var(--text-dim); margin-bottom:22px; }
+  .prompt .amber{ color:var(--amber); }
+
+  .eyebrow{ font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--amber); text-transform:uppercase; margin:0 0 16px; }
+  h1{ font-family:var(--cjk); font-weight:900; font-size:clamp(28px,5vw,42px); line-height:1.3; margin:0 0 8px; }
+  h1 .en{ display:block; font-family:var(--mono); font-weight:500; font-size:15px; color:var(--text-dim); letter-spacing:.02em; margin-top:12px; }
+
+  .meta-panel{
+    margin-top:32px; background:var(--bg-panel); border:1px solid var(--line-soft); border-radius:6px;
+    padding:22px 26px; font-family:var(--mono); font-size:13px;
+  }
+  .meta-row{ display:flex; gap:16px; padding:6px 0; flex-wrap:wrap; }
+  .meta-key{ color:var(--text-mute); width:88px; flex-shrink:0; }
+  .meta-val{ color:var(--text); }
+
+  .stat-row{ display:flex; gap:14px; margin:36px 0; flex-wrap:wrap; }
+  .stat{ background:var(--bg-panel); border:1px solid var(--line-soft); border-radius:6px; padding:18px 22px; flex:1; min-width:160px; }
+  .stat-num{ font-family:var(--mono); font-weight:700; color:var(--amber); font-size:28px; }
+  .stat-label{ font-family:var(--mono); font-size:11.5px; color:var(--text-mute); margin-top:6px; letter-spacing:.02em; }
+
+  h2{ font-size:19px; font-weight:700; color:var(--text); margin:44px 0 14px; }
+  p{ color:var(--text-dim); font-size:15px; max-width:66ch; }
+
+  .symptom-tags{ display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 4px; }
+  .tag{ font-family:var(--mono); font-size:11.5px; color:var(--text-dim); border:1px solid var(--line); padding:4px 10px; border-radius:20px; }
+
+  .findings{ display:flex; flex-direction:column; gap:14px; margin-top:20px; }
+  .finding-card{ background:var(--bg-panel); border:1px solid var(--line-soft); border-radius:8px; padding:20px 24px; }
+  .finding-head{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .finding-name{ font-family:var(--cjk); font-weight:700; font-size:16px; color:var(--text); }
+  .finding-r2{ font-family:var(--mono); font-size:11px; color:var(--amber); border:1px solid var(--amber-dim); padding:3px 9px; border-radius:20px; white-space:nowrap; }
+  .finding-body{ margin:0; font-size:14.5px; color:var(--text-dim); max-width:none; }
+  .finding-body strong{ color:var(--text); font-weight:600; }
+
+  .summary-box{ margin-top:22px; padding:22px 24px; border-left:3px solid var(--amber); background:var(--bg-panel); border-radius:0 6px 6px 0; }
+  .summary-box p{ margin:0; font-size:14.5px; color:var(--text-dim); max-width:none; }
+
+  .cta-row{ display:flex; gap:14px; margin-top:40px; flex-wrap:wrap; }
+  .cta{
+    display:inline-block; font-family:var(--mono); font-size:14px; color:var(--amber); text-decoration:none;
+    border:1px solid var(--amber-dim); padding:11px 20px; border-radius:3px; transition:background .15s,color .15s;
+  }
+  .cta:hover{ background:var(--amber); color:#FFFBF3; }
+  .cta.ghost{ color:var(--text-dim); border-color:var(--line); }
+  .cta.ghost:hover{ background:var(--bg-panel); color:var(--text); }
+
+  .rule{ height:1px; margin:48px 0; background:repeating-linear-gradient(to right, var(--line) 0 6px, transparent 6px 10px); }
+
+  .note{ font-family:var(--mono); font-size:12px; color:var(--text-mute); }
+
+  @media (max-width:600px){
+    .stat-row{ flex-direction:column; }
+    .meta-row{ flex-direction:column; gap:2px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="backlink" href="../../index.html">&larr; Portfolio</a>
+
+<main class="wrap">
+  <div class="prompt"><span class="amber">guest@yehjiajing</span>:~/projects/long-covid$ cat README.md</div>
+
+  <p class="eyebrow">Research · Statistics · Meta-Analysis</p>
+  <h1>探索長新冠之可能危險因素：統合回歸方法
+    <span class="en">Exploring Possible Risk Factors for Long COVID: A Meta-regression Approach</span>
+  </h1>
+
+  <div class="meta-panel">
+    <div class="meta-row"><span class="meta-key">author</span><span class="meta-val">葉嘉靖</span></div>
+    <div class="meta-row"><span class="meta-key">advisor</span><span class="meta-val">張玉坤 博士</span></div>
+    <div class="meta-row"><span class="meta-key">program</span><span class="meta-val">淡江大學應用數學與數據科學學系 數學與數據科學碩士班 · 碩士論文</span></div>
+    <div class="meta-row"><span class="meta-key">date</span><span class="meta-val">中華民國 114 年 1 月</span></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num">61</div><div class="stat-label">STUDIES SYNTHESIZED</div></div>
+    <div class="stat"><div class="stat-num">168,109</div><div class="stat-label">TOTAL PARTICIPANTS</div></div>
+    <div class="stat"><div class="stat-num">Top 10</div><div class="stat-label">SYMPTOMS ANALYZED</div></div>
+  </div>
+
+  <h2>研究概述</h2>
+  <p>長新冠（Long COVID）指感染 COVID-19 後持續存在或新出現的長期症狀，涵蓋範圍廣、成因複雜。本研究蒐集並統合多篇既有研究文獻，針對其中最常見的十大長新冠症狀，以統合回歸（meta-regression）方法檢視平均年齡、性別比例、身體質量指數（BMI）等變項是否為潛在危險因子，嘗試在龐雜的個案研究之間，找出具一致性的風險訊號。</p>
+
+  <h2>方法</h2>
+  <p>研究以系統性文獻回顧為基礎，納入 61 篇相關研究、合計 168,109 名受試者的數據，透過統合分析（meta-analysis）估計各症狀的整體盛行率，再以統合回歸進一步探討族群特徵與症狀盛行率之間的關聯，作為後續風險分群與臨床追蹤的參考依據。</p>
+
+  <h2>涵蓋症狀</h2>
+  <p>分析涵蓋十大最常見的長新冠症狀，包含但不限於：</p>
+  <div class="symptom-tags">
+    <span class="tag">呼吸困難</span>
+    <span class="tag">味覺異常</span>
+    <span class="tag">關節疼痛</span>
+    <span class="tag">咳嗽</span>
+    <span class="tag">胸痛 / 胸悶</span>
+    <span class="tag">記憶力減退</span>
+    <span class="tag">焦慮</span>
+    <span class="tag">憂鬱</span>
+    <span class="tag">睡眠障礙</span>
+    <span class="tag">疲倦</span>
+  </div>
+
+  <div class="rule"></div>
+
+  <h2>研究結論</h2>
+  <p>多因子統合回歸分析顯示，不同長新冠症狀各自對應不同的危險因子組合，且相關性強弱不一。以下以三項代表性症狀為例：</p>
+
+  <div class="findings">
+    <div class="finding-card">
+      <div class="finding-head">
+        <span class="finding-name">疲勞 Fatigue</span>
+        <span class="finding-r2">Adjusted R² 23.59%</span>
+      </div>
+      <p class="finding-body">經調整其他變項後，參與者<strong>平均年齡</strong>越高、<strong>文章刊登年份</strong>越晚，疲勞效益值皆呈顯著下降；<strong>高血壓罹患率</strong>越高則效益值顯著上升。推測與年齡增長後恢復能力下降、以及疫苗接種普及後病毒株特性改變有關。建議可針對中高齡族群加強健康管理與疫苗接種，作為降低長新冠疲勞風險的介入方向。</p>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-head">
+        <span class="finding-name">味覺障礙 Ageusia</span>
+        <span class="finding-r2">Adjusted R² 61.15%</span>
+      </div>
+      <p class="finding-body">此症狀的迴歸模型解釋力最高：平均年齡越高，效益值顯著下降（味覺退化可能被視為正常老化的一部分）；<strong>慢性阻塞性肺病（COPD）</strong>與<strong>糖尿病</strong>罹患率越高，效益值則顯著或邊際顯著上升。顯示慢性病患者的味覺功能追蹤與早期介入，是可行的臨床方向。</p>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-head">
+        <span class="finding-name">嗅覺障礙 Anosmia</span>
+        <span class="finding-r2">Adjusted R² 33.10%</span>
+      </div>
+      <p class="finding-body"><strong>男性比例</strong>越高、<strong>文章刊登年份</strong>越晚，嗅覺喪失效益值皆顯著下降，顯示性別可能是影響嗅覺喪失風險的重要因子，女性族群或需更多症狀追蹤與提醒。</p>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <p>整體而言，各長新冠症狀的危險因子存在明顯差異，多數症狀的相關因子也未展現出高度一致的相關性，顯示長新冠成因的複雜與多樣。研究建議後續分析可納入更多潛在因子（如膚色、地區、教育程度等），以更全面掌握長新冠背後的風險結構，作為公衛政策與臨床追蹤的參考依據。</p>
+  </div>
+
+  <div class="rule"></div>
+
+  <p class="note">完整論文內容（含文獻篩選流程、統計模型設定與各症狀之統合回歸結果）請見下方 PDF 全文。</p>
+
+  <div class="cta-row">
+    <a class="cta" href="long-covid-thesis.pdf" target="_blank" rel="noopener">[ 開啟完整論文 PDF ]</a>
+    <a class="cta ghost" href="long-covid-thesis.pdf" download>[ 下載 PDF ]</a>
+  </div>
+</main>
+
+</body>
+</html>
